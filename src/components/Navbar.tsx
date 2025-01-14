@@ -27,10 +27,13 @@ export const Navbar = () => {
   const handleSignIn = async () => {
     try {
       setIsLoading(true);
+      console.log("Starting GitHub sign-in process...");
+      console.log("Current origin:", window.location.origin);
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: `${window.location.origin}`,
           scopes: 'read:user user:email',
         },
       });
