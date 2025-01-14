@@ -22,14 +22,17 @@ export const Navbar = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       console.log("Auth state changed:", event, session);
-      setUser(session?.user ?? null);
       
       if (event === 'SIGNED_IN') {
+        setUser(session?.user ?? null);
         toast.success('Successfully signed in!');
         navigate('/');
       } else if (event === 'SIGNED_OUT') {
+        setUser(null);
         toast.success('Successfully signed out!');
+        navigate('/');
       } else if (event === 'USER_UPDATED') {
+        setUser(session?.user ?? null);
         console.log('User updated:', session?.user);
       }
     });
@@ -57,8 +60,6 @@ export const Navbar = () => {
       }
 
       console.log("Auth response:", data);
-      
-      // No need to navigate here - the onAuthStateChange listener will handle it
     } catch (error) {
       console.error("Full error:", error);
       if (error instanceof AuthError) {
