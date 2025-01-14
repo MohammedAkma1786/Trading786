@@ -4,11 +4,24 @@ import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { AuthError } from "@supabase/supabase-js";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Initial session check
@@ -26,6 +39,7 @@ export const Navbar = () => {
       if (event === 'SIGNED_IN') {
         setUser(session?.user ?? null);
         toast.success('Successfully signed in!');
+        setIsOpen(false);
         navigate('/');
       } else if (event === 'SIGNED_OUT') {
         setUser(null);
@@ -40,31 +54,37 @@ export const Navbar = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handleSignIn = async () => {
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       setIsLoading(true);
-      console.log("Starting GitHub sign-in process...");
-      
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "github",
-        options: {
-          redirectTo: `${window.location.origin}`,
-        },
-      });
+      let result;
 
-      if (error) {
-        console.error("Auth error:", error);
-        toast.error(`Authentication failed: ${error.message}`);
-        throw error;
+      if (isSignUp) {
+        result = await supabase.auth.signUp({
+          email,
+          password,
+        });
+      } else {
+        result = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
       }
 
-      console.log("Auth response:", data);
+      if (result.error) {
+        toast.error(result.error.message);
+      } else {
+        if (isSignUp) {
+          toast.success('Registration successful! Please check your email to verify your account.');
+        }
+      }
     } catch (error) {
-      console.error("Full error:", error);
+      console.error("Auth error:", error);
       if (error instanceof AuthError) {
         toast.error(`Authentication failed: ${error.message}`);
       } else {
-        toast.error("Failed to sign in. Please try again.");
+        toast.error("An unexpected error occurred");
       }
     } finally {
       setIsLoading(false);
@@ -110,13 +130,55 @@ export const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Button
-              className="neo-brutal-card hover:translate-x-0 hover:translate-y-0"
-              onClick={handleSignIn}
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign In with GitHub"}
-            </Button>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  className="neo-brutal-card hover:translate-x-0 hover:translate-y-0"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Sign In"}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>{isSignUp ? "Create Account" : "Sign In"}</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleAuth} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-4">
+                    <Button type="submit" disabled={isLoading}>
+                      {isLoading ? "Processing..." : isSignUp ? "Sign Up" : "Sign In"}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsSignUp(!isSignUp)}
+                    >
+                      {isSignUp ? "Already have an account? Sign In" : "Need an account? Sign Up"}
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
           )}
         </div>
       </div>
