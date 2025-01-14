@@ -27,16 +27,25 @@ export const Navbar = () => {
   const handleSignIn = async () => {
     try {
       setIsLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: `${window.location.origin}/`,
+          redirectTo: window.location.origin,
+          scopes: 'read:user user:email',
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Auth error:", error);
+        throw error;
+      }
+
+      console.log("Auth response:", data);
     } catch (error) {
+      console.error("Full error:", error);
       if (error instanceof AuthError) {
+        toast.error(`Authentication failed: ${error.message}`);
+      } else {
         toast.error("Failed to sign in. Please try again.");
       }
     } finally {
