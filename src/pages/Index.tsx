@@ -3,6 +3,7 @@ import { getAssets } from "@/services/api";
 import { AssetCard } from "@/components/AssetCard";
 import { Navbar } from "@/components/Navbar";
 import { Input } from "@/components/ui/input";
+import { CryptoPerformanceTable } from "@/components/CryptoPerformanceTable";
 import { useState } from "react";
 
 const Index = () => {
@@ -58,6 +59,12 @@ const Index = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+
+        <div className="mb-8">
+          <CryptoPerformanceTable />
+        </div>
+
+        <h2 className="text-2xl font-bold mb-6">All Assets</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAssets?.map((asset) => (
             <AssetCard key={asset.id} asset={asset} />

@@ -45,6 +45,51 @@ export type Database = {
         }
         Relationships: []
       }
+      crypto_performance: {
+        Row: {
+          created_at: string
+          current_price: number | null
+          future_potential_score: number | null
+          id: string
+          market_cap: number | null
+          name: string
+          performance_score: number | null
+          price_change_24h: number | null
+          price_change_7d: number | null
+          symbol: string
+          updated_at: string
+          volume_24h: number | null
+        }
+        Insert: {
+          created_at?: string
+          current_price?: number | null
+          future_potential_score?: number | null
+          id?: string
+          market_cap?: number | null
+          name: string
+          performance_score?: number | null
+          price_change_24h?: number | null
+          price_change_7d?: number | null
+          symbol: string
+          updated_at?: string
+          volume_24h?: number | null
+        }
+        Update: {
+          created_at?: string
+          current_price?: number | null
+          future_potential_score?: number | null
+          id?: string
+          market_cap?: number | null
+          name?: string
+          performance_score?: number | null
+          price_change_24h?: number | null
+          price_change_7d?: number | null
+          symbol?: string
+          updated_at?: string
+          volume_24h?: number | null
+        }
+        Relationships: []
+      }
       watchlists: {
         Row: {
           asset_id: string
