@@ -9,7 +9,71 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      assets: {
+        Row: {
+          created_at: string
+          current_price: number | null
+          id: string
+          market_cap: number | null
+          name: string
+          price_change_24h: number | null
+          symbol: string
+          updated_at: string
+          volume_24h: number | null
+        }
+        Insert: {
+          created_at?: string
+          current_price?: number | null
+          id?: string
+          market_cap?: number | null
+          name: string
+          price_change_24h?: number | null
+          symbol: string
+          updated_at?: string
+          volume_24h?: number | null
+        }
+        Update: {
+          created_at?: string
+          current_price?: number | null
+          id?: string
+          market_cap?: number | null
+          name?: string
+          price_change_24h?: number | null
+          symbol?: string
+          updated_at?: string
+          volume_24h?: number | null
+        }
+        Relationships: []
+      }
+      watchlists: {
+        Row: {
+          asset_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          asset_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          asset_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watchlists_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
