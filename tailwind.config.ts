@@ -64,6 +64,7 @@ export default {
       },
       boxShadow: {
         brutal: "5px 5px 0px 0px #000000",
+        "brutal-sm": "3px 3px 0px 0px #000000",
         "brutal-lg": "8px 8px 0px 0px #000000",
       },
       borderRadius: {
