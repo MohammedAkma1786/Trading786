@@ -48,7 +48,7 @@ export const Navbar = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: window.location.href,
+          redirectTo: 'https://trading786.vercel.app',
         },
       });
 
