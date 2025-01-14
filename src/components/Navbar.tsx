@@ -3,10 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+// Check if environment variables are available
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    "Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables"
+  );
+}
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const Navbar = () => {
   const navigate = useNavigate();
