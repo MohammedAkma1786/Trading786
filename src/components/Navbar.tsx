@@ -11,39 +11,54 @@ export const Navbar = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Initial session check
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Initial session check:", session);
       setUser(session?.user ?? null);
     });
 
+    // Set up auth state listener
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
       setUser(session?.user ?? null);
+      
+      if (event === 'SIGNED_IN') {
+        toast.success('Successfully signed in!');
+        navigate('/');
+      } else if (event === 'SIGNED_OUT') {
+        toast.success('Successfully signed out!');
+      } else if (event === 'USER_UPDATED') {
+        console.log('User updated:', session?.user);
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleSignIn = async () => {
     try {
       setIsLoading(true);
       console.log("Starting GitHub sign-in process...");
-      console.log("Current origin:", window.location.origin);
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
-          redirectTo: `${window.location.origin}`,
+          redirectTo: window.location.origin,
           scopes: 'read:user user:email',
         },
       });
 
       if (error) {
         console.error("Auth error:", error);
+        toast.error(`Authentication failed: ${error.message}`);
         throw error;
       }
 
       console.log("Auth response:", data);
+      
+      // No need to navigate here - the onAuthStateChange listener will handle it
     } catch (error) {
       console.error("Full error:", error);
       if (error instanceof AuthError) {
@@ -61,8 +76,8 @@ export const Navbar = () => {
       setIsLoading(true);
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      toast.success("Signed out successfully");
     } catch (error) {
+      console.error("Sign out error:", error);
       if (error instanceof AuthError) {
         toast.error("Failed to sign out. Please try again.");
       }
