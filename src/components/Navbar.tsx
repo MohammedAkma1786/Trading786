@@ -2,24 +2,27 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
-// Check if environment variables are available
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Get environment variables with fallbacks
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables"
-  );
-}
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create supabase client if credentials are available
+const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    if (!supabase) {
+      toast.error("Supabase configuration is missing. Some features may not work.");
+      return;
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
@@ -34,6 +37,11 @@ export const Navbar = () => {
   }, []);
 
   const handleSignIn = async () => {
+    if (!supabase) {
+      toast.error("Authentication is not available at the moment");
+      return;
+    }
+
     await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
@@ -43,6 +51,11 @@ export const Navbar = () => {
   };
 
   const handleSignOut = async () => {
+    if (!supabase) {
+      toast.error("Authentication is not available at the moment");
+      return;
+    }
+
     await supabase.auth.signOut();
   };
 
