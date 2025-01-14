@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { AuthError } from "@supabase/supabase-js";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -23,16 +25,38 @@ export const Navbar = () => {
   }, []);
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${window.location.origin}/`,
-      },
-    });
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      if (error instanceof AuthError) {
+        toast.error("Failed to sign in. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      toast.success("Signed out successfully");
+    } catch (error) {
+      if (error instanceof AuthError) {
+        toast.error("Failed to sign out. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -45,6 +69,7 @@ export const Navbar = () => {
               <Button
                 className="neo-brutal-card hover:translate-x-0 hover:translate-y-0"
                 onClick={() => navigate("/profile")}
+                disabled={isLoading}
               >
                 Profile
               </Button>
@@ -52,16 +77,18 @@ export const Navbar = () => {
                 variant="outline"
                 className="neo-brutal-card hover:translate-x-0 hover:translate-y-0"
                 onClick={handleSignOut}
+                disabled={isLoading}
               >
-                Sign Out
+                {isLoading ? "Signing out..." : "Sign Out"}
               </Button>
             </>
           ) : (
             <Button
               className="neo-brutal-card hover:translate-x-0 hover:translate-y-0"
               onClick={handleSignIn}
+              disabled={isLoading}
             >
-              Sign In with GitHub
+              {isLoading ? "Signing in..." : "Sign In with GitHub"}
             </Button>
           )}
         </div>
