@@ -4,6 +4,7 @@ import { getAsset, getAssetHistory } from "@/services/api";
 import { PriceChart } from "@/components/PriceChart";
 import { formatCurrency } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
 
 const AssetDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,9 +21,12 @@ const AssetDetail = () => {
 
   if (assetLoading || historyLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="neo-brutal-card p-6">
-          <p className="text-xl font-bold">Loading asset details...</p>
+      <div className="min-h-screen">
+        <Navbar />
+        <div className="flex items-center justify-center h-[calc(100vh-73px)]">
+          <div className="neo-brutal-card p-6">
+            <p className="text-xl font-bold">Loading asset details...</p>
+          </div>
         </div>
       </div>
     );
@@ -36,46 +40,56 @@ const AssetDetail = () => {
   const formattedVolume = formatCurrency(parseFloat(asset.volumeUsd24Hr));
 
   return (
-    <div className="container py-8 min-h-screen">
-      <Link to="/" className="inline-flex items-center space-x-2 mb-8 neo-brutal-card px-4 py-2">
-        <ArrowLeft size={20} />
-        <span>Back to Assets</span>
-      </Link>
+    <div className="min-h-screen">
+      <Navbar />
+      <div className="container py-8">
+        <Link
+          to="/"
+          className="inline-flex items-center space-x-2 mb-8 neo-brutal-card px-4 py-2"
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Assets</span>
+        </Link>
 
-      <div className="space-y-8">
-        <div className="neo-brutal-card p-6">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h1 className="text-4xl font-bold">{asset.name}</h1>
-              <p className="text-xl uppercase">{asset.symbol}</p>
+        <div className="space-y-8">
+          <div className="neo-brutal-card p-6">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h1 className="text-4xl font-bold">{asset.name}</h1>
+                <p className="text-xl uppercase">{asset.symbol}</p>
+              </div>
+              <span className="text-xl font-bold">#{asset.rank}</span>
             </div>
-            <span className="text-xl font-bold">#{asset.rank}</span>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="space-y-2">
+                <p className="text-sm uppercase">Price</p>
+                <p className="text-2xl font-bold">{formattedPrice}</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm uppercase">24h Change</p>
+                <p
+                  className={`text-2xl font-bold ${
+                    priceChange >= 0 ? "price-up" : "price-down"
+                  }`}
+                >
+                  {priceChange >= 0 ? "+" : ""}
+                  {priceChange.toFixed(2)}%
+                </p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm uppercase">Market Cap</p>
+                <p className="text-2xl font-bold">{formattedMarketCap}</p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-sm uppercase">24h Volume</p>
+                <p className="text-2xl font-bold">{formattedVolume}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="space-y-2">
-              <p className="text-sm uppercase">Price</p>
-              <p className="text-2xl font-bold">{formattedPrice}</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm uppercase">24h Change</p>
-              <p className={`text-2xl font-bold ${priceChange >= 0 ? "price-up" : "price-down"}`}>
-                {priceChange >= 0 ? "+" : ""}
-                {priceChange.toFixed(2)}%
-              </p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm uppercase">Market Cap</p>
-              <p className="text-2xl font-bold">{formattedMarketCap}</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm uppercase">24h Volume</p>
-              <p className="text-2xl font-bold">{formattedVolume}</p>
-            </div>
-          </div>
+          <PriceChart data={history} />
         </div>
-
-        <PriceChart data={history} />
       </div>
     </div>
   );
