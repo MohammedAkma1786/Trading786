@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Rocket } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -107,9 +108,19 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="w-full border-b-2 border-black bg-white">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Crypto Tracker</h1>
+    <nav className="border-b">
+      <div className="container flex items-center justify-between h-16">
+        <div className="flex items-center gap-6">
+          <Link to="/" className="text-xl font-bold">
+            Crypto Canvas
+          </Link>
+          <Link to="/high-potential">
+            <Button variant="ghost" className="gap-2">
+              <Rocket className="w-4 h-4" />
+              High Potential
+            </Button>
+          </Link>
+        </div>
         <div className="flex gap-4">
           {user ? (
             <>
