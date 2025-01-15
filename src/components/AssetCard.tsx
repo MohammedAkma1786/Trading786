@@ -63,6 +63,23 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
           description: `${asset.name} has been removed from your favorites`,
         });
       } else {
+        // First ensure the asset exists in the assets table
+        const { data: assetData, error: assetError } = await supabase
+          .rpc('ensure_asset_exists', {
+            p_asset_id: asset.id,
+            p_symbol: asset.symbol,
+            p_name: asset.name,
+            p_current_price: parseFloat(asset.priceUsd),
+            p_market_cap: parseFloat(asset.marketCapUsd),
+            p_volume_24h: parseFloat(asset.volumeUsd24Hr),
+            p_price_change_24h: parseFloat(asset.changePercent24Hr)
+          });
+
+        if (assetError) {
+          throw assetError;
+        }
+
+        // Then add to watchlist
         await supabase.from("watchlists").insert({
           asset_id: asset.id,
           user_id: session.session.user.id,
@@ -76,6 +93,7 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
 
       setIsFavorited(!isFavorited);
     } catch (error) {
+      console.error('Error toggling favorite:', error);
       toast({
         title: "Error",
         description: "Failed to update favorites",

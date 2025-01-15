@@ -124,7 +124,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      ensure_asset_exists: {
+        Args: {
+          p_asset_id: string
+          p_symbol: string
+          p_name: string
+          p_current_price: number
+          p_market_cap: number
+          p_volume_24h: number
+          p_price_change_24h: number
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
