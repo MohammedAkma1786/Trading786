@@ -4,7 +4,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import { Rocket } from "lucide-react";
+import { Rocket, Star } from "lucide-react";
 
 export const Navbar = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -29,6 +29,12 @@ export const Navbar = () => {
               <Rocket className="h-5 w-5" />
               <span>High Potential</span>
             </Link>
+            {user && (
+              <Link to="/favorites" className="flex items-center space-x-2 dark:text-gray-300 hover:text-primary transition-colors">
+                <Star className="h-5 w-5" />
+                <span>Favorites</span>
+              </Link>
+            )}
           </div>
           <div className="flex items-center space-x-4">
             <ThemeToggle />

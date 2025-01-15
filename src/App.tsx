@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import AssetDetail from "./pages/AssetDetail";
 import Profile from "./pages/Profile";
 import HighPotential from "./pages/HighPotential";
+import Favorites from "./pages/Favorites";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/asset/:id" element={<AssetDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/high-potential" element={<HighPotential />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
