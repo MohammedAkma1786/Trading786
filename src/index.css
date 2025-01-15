@@ -14,23 +14,31 @@
     --radius: 0px;
   }
 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 262 83% 66%;
+    --primary-foreground: 0 0% 100%;
+    --border: 0 0% 98%;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-neobrutalism-background text-neobrutalism-foreground font-mono;
+    @apply bg-neobrutalism-background text-neobrutalism-foreground font-mono dark:bg-gray-900 dark:text-white;
   }
 }
 
 .neo-brutal-card {
-  @apply bg-white border-2 border-black shadow-brutal transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none;
+  @apply bg-white border-2 border-black shadow-brutal transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none dark:bg-gray-800 dark:border-gray-700;
 }
 
 .price-up {
-  @apply text-green-600 font-bold;
+  @apply text-green-600 font-bold dark:text-green-400;
 }
 
 .price-down {
-  @apply text-red-600 font-bold;
+  @apply text-red-600 font-bold dark:text-red-400;
 }

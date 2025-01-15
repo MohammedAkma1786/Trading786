@@ -95,7 +95,7 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
               <h3 className="text-xl font-bold dark:text-white">{asset.name}</h3>
               <p className="text-sm uppercase dark:text-gray-300">{asset.symbol}</p>
             </div>
-            <div className="flex items-start gap-4">
+            <div className="flex items-center space-x-4">
               <span className="text-sm font-bold dark:text-gray-300">#{asset.rank}</span>
               <Button
                 variant="ghost"
