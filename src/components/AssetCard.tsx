@@ -31,7 +31,7 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
       .from("watchlists")
       .select("*")
       .eq("asset_id", asset.id)
-      .single();
+      .maybeSingle();
 
     setIsFavorited(!!data);
   };
