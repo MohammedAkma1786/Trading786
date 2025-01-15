@@ -24,7 +24,7 @@ const Index = () => {
       <div className="min-h-screen dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-73px)]">
-          <div className="neo-brutal-card p-6 dark:bg-gray-800 dark:border-gray-700">
+          <div className="neo-brutal-card p-6 mx-4 dark:bg-gray-800 dark:border-gray-700">
             <p className="text-xl font-bold dark:text-white">Loading assets...</p>
           </div>
         </div>
@@ -37,7 +37,7 @@ const Index = () => {
       <div className="min-h-screen dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-73px)]">
-          <div className="neo-brutal-card p-6 bg-red-100 dark:bg-red-900">
+          <div className="neo-brutal-card p-6 mx-4 bg-red-100 dark:bg-red-900">
             <p className="text-xl font-bold dark:text-white">Error loading assets</p>
           </div>
         </div>
@@ -48,9 +48,9 @@ const Index = () => {
   return (
     <div className="min-h-screen dark:bg-gray-900">
       <Navbar />
-      <div className="container py-8">
+      <div className="container py-8 px-4 md:px-8">
         <div className="flex flex-col items-center mb-8 space-y-4">
-          <h1 className="text-4xl font-bold dark:text-white">Crypto Assets</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-center dark:text-white">Crypto Assets</h1>
           <Input
             type="search"
             placeholder="Search assets..."
@@ -64,8 +64,8 @@ const Index = () => {
           <CryptoPerformanceTable />
         </div>
 
-        <h2 className="text-2xl font-bold mb-6 dark:text-white">All Assets</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-6 dark:text-white">All Assets</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {filteredAssets?.map((asset) => (
             <AssetCard key={asset.id} asset={asset} />
           ))}

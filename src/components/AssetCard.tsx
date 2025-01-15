@@ -15,14 +15,14 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
 
   return (
     <Link to={`/asset/${asset.id}`}>
-      <div className="neo-brutal-card p-6 cursor-pointer relative dark:bg-gray-800 dark:border-gray-700">
+      <div className="neo-brutal-card p-4 md:p-6 cursor-pointer relative dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-between items-start mb-4">
           <div className="flex justify-between items-start w-full">
             <div>
-              <h3 className="text-xl font-bold dark:text-white">{asset.name}</h3>
+              <h3 className="text-lg md:text-xl font-bold truncate dark:text-white">{asset.name}</h3>
               <p className="text-sm uppercase dark:text-gray-300">{asset.symbol}</p>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-4">
               <span className="text-sm font-bold dark:text-gray-300">#{asset.rank}</span>
               <FavoriteButton
                 assetId={asset.id}

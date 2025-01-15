@@ -39,7 +39,7 @@ export const CryptoPerformanceTable = () => {
 
   if (isLoading) {
     return (
-      <div className="neo-brutal-card p-6">
+      <div className="neo-brutal-card p-4 md:p-6">
         <p className="text-xl font-bold">Loading performance data...</p>
       </div>
     );
@@ -47,68 +47,70 @@ export const CryptoPerformanceTable = () => {
 
   return (
     <div className="neo-brutal-card p-4">
-      <h2 className="text-2xl font-bold mb-4">Crypto Performance Analysis</h2>
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Current Price</TableHead>
-              <TableHead>24h Change</TableHead>
-              <TableHead>7d Change</TableHead>
-              <TableHead>Performance Score</TableHead>
-              <TableHead>Future Potential</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {cryptoPerformance?.map((crypto) => (
-              <TableRow key={crypto.id}>
-                <TableCell className="font-medium">
-                  {crypto.name} ({crypto.symbol})
-                </TableCell>
-                <TableCell>{formatCurrency(crypto.current_price)}</TableCell>
-                <TableCell
-                  className={
-                    crypto.price_change_24h >= 0 ? "price-up" : "price-down"
-                  }
-                >
-                  {crypto.price_change_24h >= 0 ? "+" : ""}
-                  {crypto.price_change_24h.toFixed(2)}%
-                </TableCell>
-                <TableCell
-                  className={
-                    crypto.price_change_7d >= 0 ? "price-up" : "price-down"
-                  }
-                >
-                  {crypto.price_change_7d >= 0 ? "+" : ""}
-                  {crypto.price_change_7d.toFixed(2)}%
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div
-                        className="bg-violet-600 h-2.5 rounded-full"
-                        style={{ width: `${crypto.performance_score}%` }}
-                      ></div>
-                    </div>
-                    <span className="ml-2">{crypto.performance_score}%</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div
-                        className="bg-emerald-500 h-2.5 rounded-full"
-                        style={{ width: `${crypto.future_potential_score}%` }}
-                      ></div>
-                    </div>
-                    <span className="ml-2">{crypto.future_potential_score}%</span>
-                  </div>
-                </TableCell>
+      <h2 className="text-xl md:text-2xl font-bold mb-4">Crypto Performance Analysis</h2>
+      <div className="overflow-x-auto -mx-4 md:mx-0">
+        <div className="min-w-[800px] md:w-full">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead className="hidden md:table-cell">Current Price</TableHead>
+                <TableHead>24h Change</TableHead>
+                <TableHead className="hidden md:table-cell">7d Change</TableHead>
+                <TableHead>Performance Score</TableHead>
+                <TableHead className="hidden md:table-cell">Future Potential</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {cryptoPerformance?.map((crypto) => (
+                <TableRow key={crypto.id}>
+                  <TableCell className="font-medium">
+                    {crypto.name} ({crypto.symbol})
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">{formatCurrency(crypto.current_price)}</TableCell>
+                  <TableCell
+                    className={
+                      crypto.price_change_24h >= 0 ? "price-up" : "price-down"
+                    }
+                  >
+                    {crypto.price_change_24h >= 0 ? "+" : ""}
+                    {crypto.price_change_24h.toFixed(2)}%
+                  </TableCell>
+                  <TableCell
+                    className={`hidden md:table-cell ${
+                      crypto.price_change_7d >= 0 ? "price-up" : "price-down"
+                    }`}
+                  >
+                    {crypto.price_change_7d >= 0 ? "+" : ""}
+                    {crypto.price_change_7d.toFixed(2)}%
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center">
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div
+                          className="bg-violet-600 h-2.5 rounded-full"
+                          style={{ width: `${crypto.performance_score}%` }}
+                        ></div>
+                      </div>
+                      <span className="ml-2">{crypto.performance_score}%</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <div className="flex items-center">
+                      <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div
+                          className="bg-emerald-500 h-2.5 rounded-full"
+                          style={{ width: `${crypto.future_potential_score}%` }}
+                        ></div>
+                      </div>
+                      <span className="ml-2">{crypto.future_potential_score}%</span>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   );
