@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
