@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -8,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CryptoTableRow } from "./CryptoTableRow";
+import { TrendingUp } from "lucide-react";
 
 interface CryptoPerformance {
   id: string;
@@ -29,7 +31,8 @@ export const CryptoPerformanceTable = () => {
       const { data, error } = await supabase
         .from("crypto_performance")
         .select("*")
-        .order("performance_score", { ascending: false });
+        .order("price_change_24h", { ascending: false })
+        .limit(10);
 
       if (error) throw error;
       return data as CryptoPerformance[];
@@ -46,9 +49,12 @@ export const CryptoPerformanceTable = () => {
 
   return (
     <div className="neo-brutal-card p-4">
-      <h2 className="text-xl md:text-2xl font-bold mb-4">
-        Crypto Performance Analysis
-      </h2>
+      <div className="flex items-center gap-2 mb-4">
+        <TrendingUp className="w-6 h-6 text-green-600" />
+        <h2 className="text-xl md:text-2xl font-bold">
+          Top Performing Cryptocurrencies
+        </h2>
+      </div>
       <div className="overflow-x-auto -mx-4 md:mx-0">
         <div className="min-w-[800px] md:w-full">
           <Table>

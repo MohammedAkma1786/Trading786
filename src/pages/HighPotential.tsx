@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
@@ -19,8 +20,8 @@ const HighPotential = () => {
       const { data, error } = await supabase
         .from("crypto_performance")
         .select("*")
-        .order("future_potential_score", { ascending: false })
-        .limit(10);
+        .order("price_change_24h", { ascending: false })
+        .limit(20);
 
       if (error) throw error;
       return data;
@@ -33,7 +34,7 @@ const HighPotential = () => {
         <Navbar />
         <div className="container py-8">
           <div className="neo-brutal-card p-6">
-            <p className="text-xl font-bold">Loading high potential cryptos...</p>
+            <p className="text-xl font-bold">Loading top performing cryptos...</p>
           </div>
         </div>
       </div>
@@ -45,8 +46,14 @@ const HighPotential = () => {
       <Navbar />
       <div className="container py-8">
         <div className="flex items-center gap-2 mb-8">
-          <Rocket className="w-8 h-8" />
-          <h1 className="text-4xl font-bold">High Potential Cryptos</h1>
+          <TrendingUp className="w-8 h-8 text-green-600" />
+          <h1 className="text-4xl font-bold">Top Performing Cryptos</h1>
+        </div>
+
+        <div className="mb-6">
+          <p className="text-lg text-gray-600">
+            Displaying the top 20 cryptocurrencies with the highest 24-hour price gains.
+          </p>
         </div>
 
         <div className="neo-brutal-card p-6">
@@ -58,7 +65,7 @@ const HighPotential = () => {
                 <TableHead>Current Price</TableHead>
                 <TableHead>24h Change</TableHead>
                 <TableHead>7d Change</TableHead>
-                <TableHead>Potential Score</TableHead>
+                <TableHead>Volume (24h)</TableHead>
                 <TableHead>Trend</TableHead>
               </TableRow>
             </TableHeader>
@@ -73,11 +80,11 @@ const HighPotential = () => {
                   <TableCell
                     className={
                       (crypto.price_change_24h || 0) >= 0
-                        ? "text-green-600"
+                        ? "text-green-600 font-semibold"
                         : "text-red-600"
                     }
                   >
-                    {crypto.price_change_24h?.toFixed(2)}%
+                    +{crypto.price_change_24h?.toFixed(2)}%
                   </TableCell>
                   <TableCell
                     className={
@@ -88,21 +95,17 @@ const HighPotential = () => {
                   >
                     {crypto.price_change_7d?.toFixed(2)}%
                   </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span>{crypto.future_potential_score?.toFixed(2)}</span>
-                      {(crypto.future_potential_score || 0) > 7 && (
-                        <TrendingUp className="w-4 h-4 text-green-600" />
-                      )}
-                    </div>
-                  </TableCell>
+                  <TableCell>{formatCurrency(crypto.volume_24h || 0)}</TableCell>
                   <TableCell>
                     {(crypto.price_change_7d || 0) > 0 &&
                     (crypto.price_change_24h || 0) > 0 ? (
-                      <span className="text-green-600">Upward</span>
+                      <span className="text-green-600 flex items-center gap-1">
+                        <TrendingUp className="w-4 h-4" />
+                        Strong Uptrend
+                      </span>
                     ) : (crypto.price_change_7d || 0) < 0 &&
                       (crypto.price_change_24h || 0) < 0 ? (
-                      <span className="text-red-600">Downward</span>
+                      <span className="text-red-600">Downtrend</span>
                     ) : (
                       <span className="text-yellow-600">Mixed</span>
                     )}
