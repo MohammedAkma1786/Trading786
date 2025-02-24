@@ -41,17 +41,17 @@ export const CryptoPerformanceTable = () => {
 
   if (isLoading) {
     return (
-      <div className="neo-brutal-card p-4 md:p-6">
-        <p className="text-xl font-bold">Loading performance data...</p>
+      <div className="neo-brutal-card p-4 md:p-6 bg-gradient-to-br from-violet-50 to-purple-100">
+        <p className="text-xl font-bold text-violet-900">Loading performance data...</p>
       </div>
     );
   }
 
   return (
-    <div className="neo-brutal-card p-4">
+    <div className="neo-brutal-card p-4 bg-gradient-to-br from-violet-50 to-purple-100">
       <div className="flex items-center gap-2 mb-4">
-        <TrendingUp className="w-6 h-6 text-green-600" />
-        <h2 className="text-xl md:text-2xl font-bold">
+        <TrendingUp className="w-6 h-6 text-violet-600" />
+        <h2 className="text-xl md:text-2xl font-bold text-violet-900">
           Top Performing Cryptocurrencies
         </h2>
       </div>
@@ -59,13 +59,13 @@ export const CryptoPerformanceTable = () => {
         <div className="min-w-[800px] md:w-full">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead className="hidden md:table-cell">Current Price</TableHead>
-                <TableHead>24h Change</TableHead>
-                <TableHead className="hidden md:table-cell">7d Change</TableHead>
-                <TableHead>Performance Score</TableHead>
-                <TableHead className="hidden md:table-cell">Future Potential</TableHead>
+              <TableRow className="border-b-2 border-violet-200">
+                <TableHead className="text-violet-900">Name</TableHead>
+                <TableHead className="hidden md:table-cell text-violet-900">Current Price</TableHead>
+                <TableHead className="text-violet-900">24h Change</TableHead>
+                <TableHead className="hidden md:table-cell text-violet-900">7d Change</TableHead>
+                <TableHead className="text-violet-900">Performance Score</TableHead>
+                <TableHead className="hidden md:table-cell text-violet-900">Future Potential</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -27,18 +28,40 @@
   }
 
   body {
-    @apply bg-neobrutalism-background text-neobrutalism-foreground font-mono dark:bg-gray-900 dark:text-white;
+    @apply bg-gradient-to-br from-violet-50 via-white to-purple-50 min-h-screen text-neobrutalism-foreground font-mono dark:bg-gray-900 dark:text-white;
   }
 }
 
 .neo-brutal-card {
-  @apply bg-white border-2 border-black shadow-brutal transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none dark:bg-gray-800 dark:border-gray-700;
+  @apply bg-white/90 border-2 border-black shadow-brutal transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none backdrop-blur-sm dark:bg-gray-800 dark:border-gray-700;
 }
 
 .price-up {
-  @apply text-green-600 font-bold dark:text-green-400;
+  @apply text-emerald-600 font-bold dark:text-emerald-400;
 }
 
 .price-down {
-  @apply text-red-600 font-bold dark:text-red-400;
+  @apply text-rose-600 font-bold dark:text-rose-400;
+}
+
+.table-row-animated {
+  @apply transition-colors duration-200 hover:bg-violet-50;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-purple-600 font-bold;
+}
+
+.glass-effect {
+  @apply bg-white/30 backdrop-blur-md;
+}
+
+.neo-brutal-shadow {
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.1);
+}
+
+.gradient-border {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #8B5CF6, #D946EF) border-box;
+  border: 2px solid transparent;
 }
