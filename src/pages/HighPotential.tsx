@@ -30,11 +30,11 @@ const HighPotential = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
         <Navbar />
         <div className="container py-8">
-          <div className="neo-brutal-card p-6">
-            <p className="text-xl font-bold">Loading top performing cryptos...</p>
+          <div className="neo-brutal-card p-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+            <p className="text-xl font-bold text-[#333333] dark:text-[#F1F0FB]">Loading top performing cryptos...</p>
           </div>
         </div>
       </div>
@@ -42,46 +42,46 @@ const HighPotential = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
       <Navbar />
       <div className="container py-8">
         <div className="flex items-center gap-2 mb-8">
-          <TrendingUp className="w-8 h-8 text-green-600" />
-          <h1 className="text-4xl font-bold">Top Performing Cryptos</h1>
+          <TrendingUp className="w-8 h-8 text-[#7E69AB] dark:text-[#1EAEDB]" />
+          <h1 className="text-4xl font-bold text-[#333333] dark:text-[#F1F0FB]">Top Performing Cryptos</h1>
         </div>
 
         <div className="mb-6">
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-[#555555] dark:text-[#8E9196]">
             Displaying the top 20 cryptocurrencies with the highest 24-hour price gains.
           </p>
         </div>
 
-        <div className="neo-brutal-card p-6">
+        <div className="neo-brutal-card p-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Symbol</TableHead>
-                <TableHead>Current Price</TableHead>
-                <TableHead>24h Change</TableHead>
-                <TableHead>7d Change</TableHead>
-                <TableHead>Volume (24h)</TableHead>
-                <TableHead>Trend</TableHead>
+              <TableRow className="border-[#D6BCFA] dark:border-[#403E43]">
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Name</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Symbol</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Current Price</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">24h Change</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">7d Change</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Volume (24h)</TableHead>
+                <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Trend</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {cryptos?.map((crypto) => (
-                <TableRow key={crypto.id}>
-                  <TableCell className="font-medium">{crypto.name}</TableCell>
-                  <TableCell>{crypto.symbol.toUpperCase()}</TableCell>
-                  <TableCell>
+                <TableRow key={crypto.id} className="border-[#D6BCFA] dark:border-[#403E43]">
+                  <TableCell className="font-medium text-[#333333] dark:text-[#F1F0FB]">{crypto.name}</TableCell>
+                  <TableCell className="text-[#333333] dark:text-[#F1F0FB]">{crypto.symbol.toUpperCase()}</TableCell>
+                  <TableCell className="text-[#333333] dark:text-[#F1F0FB]">
                     {formatCurrency(crypto.current_price || 0)}
                   </TableCell>
                   <TableCell
                     className={
                       (crypto.price_change_24h || 0) >= 0
-                        ? "text-green-600 font-semibold"
-                        : "text-red-600"
+                        ? "text-emerald-600 dark:text-emerald-400 font-semibold"
+                        : "text-rose-600 dark:text-rose-400"
                     }
                   >
                     +{crypto.price_change_24h?.toFixed(2)}%
@@ -89,25 +89,25 @@ const HighPotential = () => {
                   <TableCell
                     className={
                       (crypto.price_change_7d || 0) >= 0
-                        ? "text-green-600"
-                        : "text-red-600"
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-rose-600 dark:text-rose-400"
                     }
                   >
                     {crypto.price_change_7d?.toFixed(2)}%
                   </TableCell>
-                  <TableCell>{formatCurrency(crypto.volume_24h || 0)}</TableCell>
+                  <TableCell className="text-[#333333] dark:text-[#F1F0FB]">{formatCurrency(crypto.volume_24h || 0)}</TableCell>
                   <TableCell>
                     {(crypto.price_change_7d || 0) > 0 &&
                     (crypto.price_change_24h || 0) > 0 ? (
-                      <span className="text-green-600 flex items-center gap-1">
+                      <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                         <TrendingUp className="w-4 h-4" />
                         Strong Uptrend
                       </span>
                     ) : (crypto.price_change_7d || 0) < 0 &&
                       (crypto.price_change_24h || 0) < 0 ? (
-                      <span className="text-red-600">Downtrend</span>
+                      <span className="text-rose-600 dark:text-rose-400">Downtrend</span>
                     ) : (
-                      <span className="text-yellow-600">Mixed</span>
+                      <span className="text-yellow-600 dark:text-yellow-400">Mixed</span>
                     )}
                   </TableCell>
                 </TableRow>
