@@ -60,10 +60,10 @@ const Favorites = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
+      <div className="min-h-screen bg-gradient-to-br from-[#E8EFE6] to-[#D4C9B9] dark:bg-[#1A1F2C]">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-73px)]">
-          <div className="neo-brutal-card p-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+          <div className="neo-brutal-card p-6 bg-white/90 border-[#6E59A5] dark:bg-[#221F26] dark:border-[#403E43]">
             <p className="text-xl font-bold text-[#333333] dark:text-[#F1F0FB]">Loading favorites...</p>
           </div>
         </div>
@@ -72,11 +72,11 @@ const Favorites = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
+    <div className="min-h-screen bg-gradient-to-br from-[#E8EFE6] to-[#D4C9B9] dark:bg-[#1A1F2C]">
       <Navbar />
       <div className="container py-8">
         <div className="flex items-center space-x-3 mb-8">
-          <Star className="h-8 w-8 text-[#7E69AB] dark:text-[#1EAEDB]" />
+          <Star className="h-8 w-8 text-[#6E59A5] dark:text-[#1EAEDB]" />
           <h1 className="text-4xl font-bold text-[#333333] dark:text-[#F1F0FB]">Your Favorites</h1>
         </div>
 
@@ -102,7 +102,7 @@ const Favorites = () => {
             })}
           </div>
         ) : (
-          <div className="neo-brutal-card p-6 text-center bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+          <div className="neo-brutal-card p-6 text-center bg-white/90 border-[#6E59A5] dark:bg-[#221F26] dark:border-[#403E43]">
             <p className="text-xl text-[#333333] dark:text-[#F1F0FB]">No favorites yet! Start adding some cryptocurrencies to your watchlist.</p>
           </div>
         )}

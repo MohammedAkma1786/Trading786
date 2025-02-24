@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
-import { TrendingUp, Rocket } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import {
   Table,
@@ -30,10 +30,10 @@ const HighPotential = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
+      <div className="min-h-screen bg-gradient-to-br from-[#E8EFE6] to-[#D4C9B9] dark:bg-[#1A1F2C]">
         <Navbar />
         <div className="container py-8">
-          <div className="neo-brutal-card p-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+          <div className="neo-brutal-card p-6 bg-white/90 border-[#6E59A5] dark:bg-[#221F26] dark:border-[#403E43]">
             <p className="text-xl font-bold text-[#333333] dark:text-[#F1F0FB]">Loading top performing cryptos...</p>
           </div>
         </div>
@@ -42,11 +42,11 @@ const HighPotential = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
+    <div className="min-h-screen bg-gradient-to-br from-[#E8EFE6] to-[#D4C9B9] dark:bg-[#1A1F2C]">
       <Navbar />
       <div className="container py-8">
         <div className="flex items-center gap-2 mb-8">
-          <TrendingUp className="w-8 h-8 text-[#7E69AB] dark:text-[#1EAEDB]" />
+          <TrendingUp className="w-8 h-8 text-[#6E59A5] dark:text-[#1EAEDB]" />
           <h1 className="text-4xl font-bold text-[#333333] dark:text-[#F1F0FB]">Top Performing Cryptos</h1>
         </div>
 
@@ -56,10 +56,10 @@ const HighPotential = () => {
           </p>
         </div>
 
-        <div className="neo-brutal-card p-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+        <div className="neo-brutal-card p-6 bg-white/90 border-[#6E59A5] dark:bg-[#221F26] dark:border-[#403E43]">
           <Table>
             <TableHeader>
-              <TableRow className="border-[#D6BCFA] dark:border-[#403E43]">
+              <TableRow className="border-[#6E59A5] dark:border-[#403E43]">
                 <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Name</TableHead>
                 <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Symbol</TableHead>
                 <TableHead className="text-[#333333] dark:text-[#F1F0FB]">Current Price</TableHead>
@@ -71,7 +71,7 @@ const HighPotential = () => {
             </TableHeader>
             <TableBody>
               {cryptos?.map((crypto) => (
-                <TableRow key={crypto.id} className="border-[#D6BCFA] dark:border-[#403E43]">
+                <TableRow key={crypto.id} className="border-[#6E59A5] dark:border-[#403E43]">
                   <TableCell className="font-medium text-[#333333] dark:text-[#F1F0FB]">{crypto.name}</TableCell>
                   <TableCell className="text-[#333333] dark:text-[#F1F0FB]">{crypto.symbol.toUpperCase()}</TableCell>
                   <TableCell className="text-[#333333] dark:text-[#F1F0FB]">

@@ -27,11 +27,11 @@ const Profile = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F2FCE2] to-[#FDE1D3] dark:bg-[#1A1F2C]">
+    <div className="min-h-screen bg-gradient-to-br from-[#E8EFE6] to-[#D4C9B9] dark:bg-[#1A1F2C]">
       <Navbar />
       <div className="container py-8">
         <div className="max-w-2xl mx-auto">
-          <div className="neo-brutal-card p-8 space-y-6 bg-white/80 border-[#D6BCFA] dark:bg-[#221F26] dark:border-[#403E43]">
+          <div className="neo-brutal-card p-8 space-y-6 bg-white/90 border-[#6E59A5] dark:bg-[#221F26] dark:border-[#403E43]">
             <h1 className="text-3xl font-bold text-[#333333] dark:text-[#F1F0FB]">Profile</h1>
             <div className="space-y-4">
               <div>
@@ -45,7 +45,7 @@ const Profile = () => {
             </div>
             <Button
               onClick={handleUpgrade}
-              className="neo-brutal-card w-full bg-[#7E69AB] hover:bg-[#9b87f5] dark:bg-[#1EAEDB] dark:hover:bg-[#0FA0CE] text-white hover:translate-x-0 hover:translate-y-0"
+              className="neo-brutal-card w-full bg-[#6E59A5] hover:bg-[#7E69AB] dark:bg-[#1EAEDB] dark:hover:bg-[#0FA0CE] text-white hover:translate-x-0 hover:translate-y-0"
             >
               Upgrade to Premium
             </Button>
