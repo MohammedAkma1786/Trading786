@@ -84,7 +84,8 @@ const HighPotential = () => {
                         : "text-rose-600 dark:text-rose-400"
                     }
                   >
-                    +{crypto.price_change_24h?.toFixed(2)}%
+                    {(crypto.price_change_24h || 0) >= 0 ? "+" : ""}
+                    {crypto.price_change_24h?.toFixed(2)}%
                   </TableCell>
                   <TableCell
                     className={
@@ -93,6 +94,7 @@ const HighPotential = () => {
                         : "text-rose-600 dark:text-rose-400"
                     }
                   >
+                    {(crypto.price_change_7d || 0) >= 0 ? "+" : ""}
                     {crypto.price_change_7d?.toFixed(2)}%
                   </TableCell>
                   <TableCell className="text-[#333333] dark:text-[#F1F0FB]">{formatCurrency(crypto.volume_24h || 0)}</TableCell>
